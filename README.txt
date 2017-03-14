@@ -1,0 +1,1 @@
+Al clonar el repositorio, realizar un npm install
