@@ -11,6 +11,10 @@ module.exports = function(app) {
       .get(users.renderRegister)
       .post(users.register);
 
+      app.route('/config')
+          .get(users.renderConfigura);
+
+
   app.route('/login')
       .get(users.renderLogin)
       .post(passport.authenticate('local', {
@@ -20,7 +24,7 @@ module.exports = function(app) {
       }));
 
   app.get('/logout', users.logout);
-  
+
   app.get('/oauth/facebook', passport.authenticate('facebook', {
     failureRedirect: '/login',
     scope:['email']

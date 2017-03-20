@@ -17,18 +17,12 @@
 </head>
 
 <body>
-  <!--CABECERA---------------------------->
-  <% include partials/cabecera %>
-
-
-<!--Si hay un usuario conectado-->
- <% if ( user ) { %>
-<!-- BARRA NAVEGACIÓN---------------------------->
+<% include partials/cabecera %>
 <% include partials/barranav %>
 
-        <h2>Hola <%=user%>, esta es la pag principal </h2>
+        <h2>Hola <%=user%> , bienvenido a pag de configuración </h2>
 
-<% } %>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
