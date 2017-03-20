@@ -14,4 +14,7 @@ liga
 /configuracion
 /liga
 
+DOING List:
+Aprender git
+
 DONE List:
