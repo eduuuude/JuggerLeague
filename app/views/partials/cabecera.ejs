@@ -15,6 +15,7 @@
 
                     <div class="login">
                       <a href="/config"><i class="fa fa-cog"></i> <span class="hidden-xs text-uppercase">Configuración</span></a>
+                      <a href="#" data-toggle="modal" data-target="#contact-modal"><i class="fa fa-info-circle"></i> <span class="hidden-xs text-uppercase">Contacto</span></a>
                         <a href="/logout"><i class="fa fa-sign-out"></i> <span class="hidden-xs text-uppercase">Salir</span></a>
 
                     </div>
@@ -30,6 +31,37 @@
                 <% } %>
 
 
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- *** CONFIGURA MODAL ***
+_________________________________________________________ -->
+
+    <div class="modal fade" id="contact-modal" tabindex="-1" role="dialog" aria-labelledby="Contact" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="Contact">Contacta con nosotros</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="mailto:usuario@yahoo.es" method="post">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="usuario" id="usuario" placeholder="Usuario" required autofocus>
+                        </div>
+                        <div class="form-group">
+                            <textarea type="text"  class="form-control"  name="mensaje" style="height : 200px" id="texto" placeholder="Mensaje" required autofocus></textarea>
+                        </div>
+
+                        <p class="text-center">
+                           <i class="fa fa-paper-planes"></i> <input type="submit" class="btn btn-template-main" value="Enviar">
+                        </p>
+
+                    </form>
 
                 </div>
             </div>
