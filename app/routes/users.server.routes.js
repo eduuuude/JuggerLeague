@@ -14,6 +14,9 @@ module.exports = function(app) {
       app.route('/config')
           .get(users.renderConfigura);
 
+	app.route('/tienda')
+			.get(users.renderTienda);
+
 
   app.route('/login')
       .get(users.renderLogin)

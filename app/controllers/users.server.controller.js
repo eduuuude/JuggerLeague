@@ -81,6 +81,18 @@ exports.renderConfigura = function(req, res, next) {
     }
 };
 
+exports.renderTienda = function(req, res, next) {
+    if (req.user) {
+        res.render('tienda', {
+            title: 'Tienda',
+            user: req.user ? req.user.username : ''
+        });
+    }
+    else {
+        return res.redirect('/');
+    }
+};
+
 exports.register = function(req, res, next) {
     if (!req.user) {
         var user = new User(req.body);
