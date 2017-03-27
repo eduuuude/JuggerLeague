@@ -49,7 +49,7 @@ exports.renderCalendario = function(req, res, next) {
     if (req.user) {
         res.render('calendario', {
             title: 'Calendario',
-            user: req.user ? req.user.username : ''
+            tipo: req.user ? req.user.tipo : ''
         });
     }
     else {
@@ -61,7 +61,7 @@ exports.renderCombates = function(req, res, next) {
     if (req.user) {
         res.render('combates', {
             title: 'Combates',
-            user: req.user ? req.user.username : ''
+            tipo: req.user ? req.user.tipo : ''
         });
     }
     else {
@@ -73,7 +73,7 @@ exports.renderClasificacion = function(req, res, next) {
     if (req.user) {
         res.render('clasificacion', {
             title: 'Clasificacion',
-            user: req.user ? req.user.username : ''
+            tipo: req.user ? req.user.tipo : ''
         });
     }
     else {
