@@ -73,7 +73,7 @@ exports.renderConfigura = function(req, res, next) {
     if (req.user) {
         res.render('configura', {
             title: 'Configura Form',
-            user: req.user ? req.user.username : ''
+            tipo: req.user ? req.user.username : ''
         });
     }
     else {
@@ -85,7 +85,7 @@ exports.renderTienda = function(req, res, next) {
     if (req.user) {
         res.render('tienda', {
             title: 'Tienda',
-            user: req.user ? req.user.username : ''
+            tipo: req.user ? req.user.username : ''
         });
     }
     else {
@@ -136,6 +136,20 @@ exports.userByID = function(req, res, next, id) {
         }
     );
 };
+
+exports.updatePassword = function(req, res) {
+    user.password=req.body.password;
+    User.findByIdAndUpdate(req.user.id, req.body, function(err, user) {
+        if (err) {
+            return next(err);
+        }
+        else {
+            res.json(user);
+        }
+    });
+};
+
+
 exports.update = function(req, res, next) {
     User.findByIdAndUpdate(req.user.id, req.body, function(err, user) {
         if (err) {
@@ -146,6 +160,7 @@ exports.update = function(req, res, next) {
         }
     });
 };
+
 exports.delete = function(req, res, next) {
     req.user.remove(function(err) {
         if (err) {

@@ -15,7 +15,8 @@ module.exports = function(app) {
           .get(users.renderConfigura);
 
 	app.route('/tienda')
-			.get(users.renderTienda);
+			.get(users.renderTienda)
+      .post(users.update);
 
 
   app.route('/login')

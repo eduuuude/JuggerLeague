@@ -22,11 +22,19 @@
 
 
 <!--Si hay un usuario conectado-->
- <% if ( user ) { %>
+ <% if ( tipo=="administrador" ) { %>
 <!-- BARRA NAVEGACIÓN---------------------------->
 <% include partials/barranav %>
 
-        <h2>Hola <%=user%>, esta es la pag principal </h2>
+        <h2>Hola señor administrador, esta es la pag principal </h2>
+
+<% }  %>
+
+<% if ( tipo=="usuario" ) { %>
+<!-- BARRA NAVEGACIÓN---------------------------->
+<% include partials/barranav %>
+
+       <h2>Hola tonto usuario, esta es la pag principal </h2>
 
 <% } %>
 
