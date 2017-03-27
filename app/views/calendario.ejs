@@ -17,11 +17,27 @@
 </head>
 
 <body>
-<% include partials/cabecera %>
+
+<!--CABECERA---------------------------->
+  <% include partials/cabecera %>
+
+
+<!--Si hay un usuario conectado-->
+ <% if ( tipo=="administrador" ) { %>
+<!-- BARRA NAVEGACIÓN---------------------------->
 <% include partials/barranav %>
 
-        <h2>Hola <%=user%> , bienvenido al calendario </h2>
+        <h2>Puedes consultar todo sobre el calendario y realizar cambios </h2>
+				<h3><%=tipo%></h3>
+<% }  %>
 
+<% if ( tipo=="usuario" ) { %>
+<!-- BARRA NAVEGACIÓN---------------------------->
+<% include partials/barranav %>
+
+       <h2>Hola <%=tipo%> , bienvenido a tu calendario  </h2>
+
+<% } %>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
