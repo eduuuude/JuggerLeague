@@ -12,6 +12,10 @@
     <link href="css/style.default.css" rel="stylesheet" id="theme-stylesheet">
     <link href="css/animate.css" rel="stylesheet">
 
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.0/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.8/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.8/addons/p5.dom.js"></script>
 
 
 </head>
@@ -34,7 +38,46 @@
 <!-- BARRA NAVEGACIÓN---------------------------->
 <% include partials/barranav %>
 
-       <h2>Hola <%=tipo%>, esta es la pag principal </h2>
+  <h2>Hola <%=tipo%>, esta es la pag principal </h2>
+  <button type="button" id="exitButton">Terminar Streaming</button>
+  <script>
+    var c;
+    var video;
+    var socket = io.connect('http://localhost:1337');
+    var id = null;
+    var users;
+    var userName;
+
+    console.log('Aqui estoy');
+    socket.emit('newConnection', {isEmitter : true , name : "New Emitter"});   //Enviar como name el nombre del usuario
+
+    socket.on('userName', function(data){
+      userName = data;
+    });
+
+    socket.on('updateUsers',function(data){
+      users = data;
+    });
+
+    function setup(){
+      c = createCanvas(640,480);
+      video = createCapture(VIDEO);
+      video.size(640,480);
+      video.hide();
+    }
+    function draw(){
+      image(video,0,0,640,480);
+      if(frameRate()> 55){
+        socket.emit('sendStream',{name:userName,capture:c.canvas.toDataURL()});
+      }
+    }
+
+    document.getElementById("exitButton").onclick = function () {
+      socket.emit('closeConnection',userName);
+      location.href = "http://localhost:1337";
+    };
+
+  </script>
 
 <% } %>
 

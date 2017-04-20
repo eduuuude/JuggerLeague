@@ -12,7 +12,10 @@
     <link href="css/style.default.css" rel="stylesheet" id="theme-stylesheet">
     <link href="css/animate.css" rel="stylesheet">
 
-
+    <script src='/socket.io/socket.io.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.0/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.8/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.8/addons/p5.dom.js"></script>
 
 </head>
 
@@ -32,11 +35,99 @@
 <!-- BARRA NAVEGACIÓN---------------------------->
 <% include partials/barranav %>
 
-       <h2>Hola usuario, aqui puedes ver el streaming </h2>
+    <h2>Hola usuario, aqui puedes ver el streaming </h2>
+    <div id='all' class='all'>
+      <div id="fullContent" class="fullContent">
+      </div>
+    </div>
+
+    <script>
+
+    <h2>Hola desconocido, puedes ver el streaming sin tener cuenta </h2>
+    <div id='all' class='all'>
+      <div id="fullContent" class="fullContent">
+      </div>
+    </div>
+
+    <script>
+      var socket = io.connect('http://localhost:1337');
+      var source = "img";
+      var users;
+
+      socket.emit('newConnection', {isEmitter : false, name : undefined});
+
+      socket.on('stopStreaming',function(data){
+        var all = document.getElementById("all").innerHTML = "";
+        $( ".all" ).append( '<div id=\'fullContent\' class=\'fullContent\'><div>' );
+      })
+
+      socket.on('updateUsers',function(data){
+        users = data;
+        var fullContent = document.getElementById("fullContent").innerHTML = "";
+        if(fullContent!=null){
+          for(var i=0;i<users.length;i++){
+          $( ".fullContent" ).append( "<p>Usuario " + users[i] + " emitiendo</p> <button type=\"button\" id=\"" + users[i] + "\" onclick=\"verStreaming\(\'" + users[i] + "\'\)\">Visualizar</button>");
+          }
+        }
+      });
+
+      function verStreaming(name){
+        var all = document.getElementById("all").innerHTML = "";
+        $( ".all" ).append( '<img id=\"stream\" \/>' );
+      }
+
+      socket.on('sendStream',function(data){
+        var stream = document.getElementById('stream');
+        if(stream!=null){
+          stream.src = data.capture;
+        }
+      });
+
+    </script>
 
 <% } else { %>
 
 			<h2>Hola desconocido, puedes ver el streaming sin tener cuenta </h2>
+      <div id='all' class='all'>
+        <div id="fullContent" class="fullContent">
+        </div>
+      </div>
+
+      <script>
+        var socket = io.connect('http://localhost:1337');
+        var source = "img";
+        var users;
+
+        socket.emit('newConnection', {isEmitter : false, name : undefined});
+
+        socket.on('stopStreaming',function(data){
+          var all = document.getElementById("all").innerHTML = "";
+          $( ".all" ).append( '<div id=\'fullContent\' class=\'fullContent\'><div>' );
+        })
+
+        socket.on('updateUsers',function(data){
+          users = data;
+          var fullContent = document.getElementById("fullContent").innerHTML = "";
+          if(fullContent!=null){
+            for(var i=0;i<users.length;i++){
+            $( ".fullContent" ).append( "<p>Usuario " + users[i] + " emitiendo</p> <button type=\"button\" id=\"" + users[i] + "\" onclick=\"verStreaming\(\'" + users[i] + "\'\)\">Visualizar</button>");
+            }
+          }
+        });
+
+        function verStreaming(name){
+          var all = document.getElementById("all").innerHTML = "";
+          $( ".all" ).append( '<img id=\"stream\" \/>' );
+        }
+
+        socket.on('sendStream',function(data){
+          var stream = document.getElementById('stream');
+          if(stream!=null){
+            stream.src = data.capture;
+          }
+        });
+
+      </script>
 
 <% } %>
 
