@@ -42,25 +42,25 @@
     </div>
 
     <script>
-
-    <h2>Hola desconocido, puedes ver el streaming sin tener cuenta </h2>
-    <div id='all' class='all'>
-      <div id="fullContent" class="fullContent">
-      </div>
-    </div>
-
-    <script>
       var socket = io.connect('http://localhost:1337');
-      var source = "img";
       var users;
 
+      /**Al realizar la conexión se procede a comunicar que se ha conectado
+      *Se comunica que no se trata de un emisor
+      **/
       socket.emit('newConnection', {isEmitter : false, name : undefined});
 
+      /**Al recibir el evento 'stopStreaming' se modifica la página para que tenga el aspecto principal
+      *Se añade el div en el cual se van añadiendo los emisores que se conectar
+      **/
       socket.on('stopStreaming',function(data){
         var all = document.getElementById("all").innerHTML = "";
         $( ".all" ).append( '<div id=\'fullContent\' class=\'fullContent\'><div>' );
       })
 
+      /**Al recibir el evento 'updateUsers' se recoge el array de emisores
+      *Se muestra el nombre de cada emisor seguido de un botón que permite visualizar el streaming
+      **/
       socket.on('updateUsers',function(data){
         users = data;
         var fullContent = document.getElementById("fullContent").innerHTML = "";
@@ -71,11 +71,18 @@
         }
       });
 
+      /**Función para activar la visualización del streaming
+      *Se añade un <img> para representar los frames recibidos
+      **/
       function verStreaming(name){
         var all = document.getElementById("all").innerHTML = "";
         $( ".all" ).append( '<img id=\"stream\" \/>' );
       }
 
+      /**Con el evento 'sendStream' se recogerá cada frame recibido y se representará en el <img> creado
+      *Si el <img> no existe (es null), no se realizará nada
+      *Esto ocurre cuando no se ha pulsado el botón de stream
+      **/
       socket.on('sendStream',function(data){
         var stream = document.getElementById('stream');
         if(stream!=null){
@@ -95,16 +102,24 @@
 
       <script>
         var socket = io.connect('http://localhost:1337');
-        var source = "img";
         var users;
 
+        /**Al realizar la conexión se procede a comunicar que se ha conectado
+        *Se comunica que no se trata de un emisor
+        **/
         socket.emit('newConnection', {isEmitter : false, name : undefined});
 
+        /**Al recibir el evento 'stopStreaming' se modifica la página para que tenga el aspecto principal
+        *Se añade el div en el cual se van añadiendo los emisores que se conectar
+        **/
         socket.on('stopStreaming',function(data){
           var all = document.getElementById("all").innerHTML = "";
           $( ".all" ).append( '<div id=\'fullContent\' class=\'fullContent\'><div>' );
         })
 
+        /**Al recibir el evento 'updateUsers' se recoge el array de emisores
+        *Se muestra el nombre de cada emisor seguido de un botón que permite visualizar el streaming
+        **/
         socket.on('updateUsers',function(data){
           users = data;
           var fullContent = document.getElementById("fullContent").innerHTML = "";
@@ -115,11 +130,18 @@
           }
         });
 
+        /**Función para activar la visualización del streaming
+        *Se añade un <img> para representar los frames recibidos
+        **/
         function verStreaming(name){
           var all = document.getElementById("all").innerHTML = "";
           $( ".all" ).append( '<img id=\"stream\" \/>' );
         }
 
+        /**Con el evento 'sendStream' se recogerá cada frame recibido y se representará en el <img> creado
+        *Si el <img> no existe (es null), no se realizará nada
+        *Esto ocurre cuando no se ha pulsado el botón de stream
+        **/
         socket.on('sendStream',function(data){
           var stream = document.getElementById('stream');
           if(stream!=null){

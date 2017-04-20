@@ -48,17 +48,29 @@
     var users;
     var userName;
 
-    console.log('Aqui estoy');
+    /**Al realizar la conexión se procede a comunicar que se ha conectado
+    *Se comunica que se trata de un emisor
+    **/
     socket.emit('newConnection', {isEmitter : true , name : "New Emitter"});   //Enviar como name el nombre del usuario
 
+    /**Evento temporal para generar nombres distintos de emisores
+    **/
     socket.on('userName', function(data){
       userName = data;
     });
 
+    /**Con el evento 'updateUsers' se guarda el array de emisores
+    *Puede que no sea necesario jeje
+    **/
     socket.on('updateUsers',function(data){
       users = data;
     });
 
+    /**Estas dos funciones las proporciona p5.js
+    *Sirven para capturar el video y/o audio de la webcam
+    *Si no se pasa ningún parámetro a createCapture() se capturan tanto audio como video
+    *La función draw representa frame a frame, es por eso que se aprovecha para enviarlos con el evento 'sendStream'
+    **/
     function setup(){
       c = createCanvas(640,480);
       video = createCapture(VIDEO);
@@ -72,9 +84,16 @@
       }
     }
 
+    /**Aquí se añade la función a ejecutar cuando se hace click en el botón de Terminar stopStreaming
+    *Envía el evento 'closeConnection' para avisar de que se termina de hacer streaming
+    *Se esperan 100ms para redirigir a la página principal
+    *(Hago esto por que si no me da problemas, no se por que pero no se envía el evento cuando no pongo una pequeña espera)
+    **/
     document.getElementById("exitButton").onclick = function () {
       socket.emit('closeConnection',userName);
-      location.href = "http://localhost:1337";
+      setTimeout(function(){
+              location.href = "http://localhost:1337";
+      }, 100);
     };
 
   </script>
