@@ -22,16 +22,21 @@
   <% include partials/cabecera %>
 
 
+<!--Si hay un usuario conectado-->
+ <% if ( tipo=="administrador" ) { %>
 <!-- BARRA NAVEGACIÓN---------------------------->
 <% include partials/barranav %>
 
-       <div class="col-md-9 clearfix" id="customer-order">
-           <p class="lead">Gracias por tu compra, dentro de poco recibirás un mensaje de confirmación.</p>
-           <p class="lead text-muted">Si tienes alguna duda no dudes en contactarnos.</p>
-         </div>
+        <h2>Desde aquí se va a poder realizar streaming</h2>
+<% }  %>
 
+<% if ( tipo=="usuario" ) { %>
+<!-- BARRA NAVEGACIÓN---------------------------->
+<% include partials/barranav %>
 
+       <h2>Hola <%=tipo%>, esta es la pag principal </h2>
 
+<% } %>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

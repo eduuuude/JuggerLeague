@@ -2,7 +2,6 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var ShopSchema = new Schema({
-    prid: Number,
     producto: String,
     precio: Number,
     nivel: Number,

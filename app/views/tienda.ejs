@@ -35,32 +35,34 @@
     <div class="container">
         <p class="text-muted lead text-center">
           En esta página podrás comprar todas las mejoras para tu robot. Gasta con cabeza, los créditos son limitados</br></br>
-          Su crédito actual es <%=credito%>
+          Tu crédito actual es <%=credito%>
           </p>
         <div class="row products">
+          <% for(var i=0; i < data.length; i++) { %>
+
 
             <div class="col-md-3 col-sm-4">
                 <div class="product">
                     <div class="image">
                         <a>
-                            <img src="img/pinza.jpg" alt="" class="img-responsive image1">
+                            <img src='img/<%=data[i].producto%>.jpg' alt="" class="img-responsive image1">
                         </a>
                     </div>
                     <!-- /.image -->
                     <div class="text">
-                        <h3><a href="shop-detail.html"><%=data[0].producto%></a></h3>
-                        <p class="price"><%=data[0].precio%> créditos</p>
+                        <h3><a href="shop-detail.html"><%=data[i].producto%></a></h3>
+                        <p class="price"><%=data[i].precio%> créditos</p>
                     </div>
                     <!-- /.text -->
-                    <% if ( nivel< data[0].nivel*100 ) { %>
+                    <% if ( nivel< data[i].nivel*100 ) { %>
                     <div class="ribbon sale">
                         <div class="theribbon">Nivel insuficiente</div>
                         <div class="ribbon-background"></div>
                     </div>
                     <% }  else { %>
-                      <% if ( credito> data[0].precio ) { %>
+                      <% if ( credito> data[i].precio ) { %>
 
-                        <a href='/compra/<%=data[0]._id%>' class="btn btn-template-main"><i class="fa fa-shopping-cart"></i>Comprar</a>
+                        <a href='/compra/<%=data[i]._id%>' class="btn btn-template-main"><i class="fa fa-shopping-cart"></i>Comprar</a>
                       <% }  else { %>
                         <a href="#" data-toggle="modal" data-target="#compra-modal" class="btn btn-template-main"><i class="fa fa-shopping-cart"></i>Comprar</a>
 
@@ -70,73 +72,7 @@
                 </div>
                 <!-- /.product -->
             </div>
-
-            <div class="col-md-3 col-sm-4">
-                <div class="product">
-                    <div class="image">
-                        <a>
-                            <img src="img/Pala.jpg" alt="" class="img-responsive image1">
-                        </a>
-                    </div>
-                    <!-- /.image -->
-                    <div class="text">
-                        <h3><a href="shop-detail.html"><%=data[1].producto%></a></h3>
-                        <p class="price"><%=data[1].precio%> créditos</p>
-
-                    </div>
-                    <!-- /.text -->
-
-                    <% if ( nivel< data[1].nivel*100 ) { %>
-                    <div class="ribbon sale">
-                        <div class="theribbon" >Nivel insuficiente</div>
-                        <div class="ribbon-background"></div>
-                    </div>
-                    <% }  else { %>
-
-                      <% if ( credito> data[1].precio ) { %>
-                      <a href='/compra/<%=data[1]._id%>' class="btn btn-template-main"><i class="fa fa-shopping-cart"></i>Comprar</a>
-                      <% }  else { %>
-                        <a href="#" data-toggle="modal" data-target="#compra-modal" class="btn btn-template-main"><i class="fa fa-shopping-cart"></i>Comprar</a>
-
-                      <% } %>
-                        <% } %>
-
-                </div>
-                <!-- /.product -->
-            </div>
-
-            <div class="col-md-3 col-sm-4">
-                <div class="product">
-                    <div class="image">
-                        <a>
-                            <img src="img/rayo.jpg" alt="" class="img-responsive image1">
-                        </a>
-                    </div>
-                    <!-- /.image -->
-                    <div class="text">
-                        <h3><a href="shop-detail.html"><%=data[2].producto%></a></h3>
-                        <p class="price"><%=data[2].precio%> créditos</p>
-                    </div>
-                    <!-- /.text -->
-                    <% if ( nivel< data[2].nivel *100 ) { %>
-                    <div class="ribbon sale">
-                        <div class="theribbon">Nivel insuficiente</div>
-                        <div></div>
-                    </div>
-                    <% }  else { %>
-                      <% if ( credito> data[2].precio ) { %>
-
-                        <a href='/compra/<%=data[2]._id%>' class="btn btn-template-main"><i class="fa fa-shopping-cart"></i>Comprar</a>
-                      <% }  else { %>
-                        <a href="#" data-toggle="modal" data-target="#compra-modal" class="btn btn-template-main"><i class="fa fa-shopping-cart"></i>Comprar</a>
-
-                      <% } %>
-                        <% } %>
-
-                </div>
-                <!-- /.product -->
-
-            </div>
+            <% } %>
 
       </div>
     <!-- /.container -->

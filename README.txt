@@ -38,3 +38,8 @@ configuracion
 (en mongo.exe -- use todos)
 db.users.update({"username":"Prueba"}, { $set : {creditos : 30}})
 db.users.update({"username":"Prueba"}, { $set : {nivel : 2}})
+
+Añadir a la tienda productos:
+db.shops.insert({"producto":"Pala", "precio": 40, "nivel": 1})
+db.shops.insert({"producto":"Pinzas", "precio": 20, "nivel": 1})
+db.shops.insert({"producto":"Laser", "precio": 80, "nivel": 5})
