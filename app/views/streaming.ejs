@@ -46,6 +46,7 @@
     var socket = io.connect('http://localhost:1337');
     var id = null;
     var users;
+    var sockets;
     var userName;
 
 
@@ -96,6 +97,9 @@
               location.href = "http://localhost:1337";
       }, 100);
     };
+
+    /**Función para no permitir que se cierre la página sin darle al botón de terminar streaming
+    **/
 
   </script>
 
