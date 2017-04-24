@@ -48,10 +48,11 @@
     var users;
     var userName;
 
+
     /**Al realizar la conexión se procede a comunicar que se ha conectado
     *Se comunica que se trata de un emisor
     **/
-    socket.emit('newConnection', {isEmitter : true , name : "New Emitter"});   //Enviar como name el nombre del usuario
+    socket.emit('newConnection', {isEmitter : true , name : '<%=nombre%>'});   //Enviar como name el nombre del usuario
 
     /**Evento temporal para generar nombres distintos de emisores
     **/
