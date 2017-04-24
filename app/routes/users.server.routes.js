@@ -14,11 +14,6 @@ module.exports = function(app) {
       app.route('/config')
           .get(users.renderConfigura);
 
-	app.route('/tienda')
-			.get(users.renderTienda)
-      .post(users.update);
-
-
   app.route('/login')
       .get(users.renderLogin)
       .post(passport.authenticate('local', {

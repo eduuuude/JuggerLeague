@@ -17,26 +17,22 @@
 </head>
 
 <body>
-  <!--CABECERA---------------------------->
+
+<!--CABECERA---------------------------->
   <% include partials/cabecera %>
 
 
-<!--Si hay un usuario conectado-->
- <% if ( tipo=="administrador" ) { %>
 <!-- BARRA NAVEGACIÓN---------------------------->
 <% include partials/barranav %>
 
-        <h2>Hola señor administrador, esta es la pag principal </h2>
+       <div class="col-md-9 clearfix" id="customer-order">
+           <p class="lead">Gracias por tu compra, dentro de poco recibirás un mensaje de confirmación.</p>
+           <p class="lead text-muted">Si tienes alguna duda no dudes en contactarnos.</p>
+         </div>
 
-<% }  %>
 
-<% if ( tipo=="usuario" ) { %>
-<!-- BARRA NAVEGACIÓN---------------------------->
-<% include partials/barranav %>
 
-       <h2>Hola usuario, esta es la pag principal </h2>
 
-<% } %>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
