@@ -57,6 +57,18 @@ exports.renderCalendario = function(req, res, next) {
     }
 };
 
+exports.renderStreaming = function(req, res, next) {
+    if (req.user) {
+        res.render('streaming', {
+            title: 'Streaming',
+            tipo: req.user ? req.user.tipo : ''
+        });
+    }
+    else {
+        return res.redirect('/');
+    }
+};
+
 exports.renderCombates = function(req, res, next) {
     if (req.user) {
         res.render('combates', {
@@ -79,4 +91,11 @@ exports.renderClasificacion = function(req, res, next) {
     else {
         return res.redirect('/');
     }
+};
+
+exports.renderEnDirecto = function(req, res, next) {
+        res.render('endirecto', {
+            title: 'En directo',
+            tipo: req.user ? req.user.tipo : ''
+        });
 };
