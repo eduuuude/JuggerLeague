@@ -4,7 +4,6 @@ module.exports = function(server){
   var io = require('socket.io').listen(server);
 
   var users = [];
-  var tmp=0;
 
 io.on('connection', function(socket){
   console.log('Nueva conexión establecida.');
@@ -15,12 +14,11 @@ io.on('connection', function(socket){
   **/
   socket.on('newConnection',function(data){
     if((data.isEmitter)==true){
+                                                                   //Esto es una solucion temporal para almacenar
+      console.log('Emisor con nombre ' + data.name + ' conectado');    //emisores con nombres distintos
+      socket.emit('userName',data.name);
 
-      tmp+=1;                                                                         //Esto es una solucion temporal para almacenar
-      console.log('Emisor con nombre ' + data.name+tmp.toString() + ' conectado');    //emisores con nombres distintos
-      socket.emit('userName',data.name+tmp.toString());
-
-      users.push(data.name+tmp.toString());
+      users.push(data.name);
     }
     console.log("Número de usuarios emitiendo: "+users.length);
     io.emit('updateUsers',users);

@@ -22,8 +22,10 @@ var getErrorMessage = function(err) {
 
     return message;
 };
+
 exports.list = function(req, res, next) {
     User.find({}, function(err, users) {
+      console.log(users);
         if (err) {
             return next(err);
         }
@@ -73,18 +75,6 @@ exports.renderConfigura = function(req, res, next) {
     if (req.user) {
         res.render('configura', {
             title: 'Configura Form',
-            tipo: req.user ? req.user.username : ''
-        });
-    }
-    else {
-        return res.redirect('/');
-    }
-};
-
-exports.renderTienda = function(req, res, next) {
-    if (req.user) {
-        res.render('tienda', {
-            title: 'Tienda',
             tipo: req.user ? req.user.username : ''
         });
     }
