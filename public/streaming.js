@@ -4,6 +4,7 @@ module.exports = function(server){
   var io = require('socket.io').listen(server);
 
   var users = [];
+  var sockets = [];
 
 io.on('connection', function(socket){
   console.log('Nueva conexión establecida.');
@@ -17,8 +18,8 @@ io.on('connection', function(socket){
                                                                    //Esto es una solucion temporal para almacenar
       console.log('Emisor con nombre ' + data.name + ' conectado');    //emisores con nombres distintos
       socket.emit('userName',data.name);
-
       users.push(data.name);
+      sockets.push(socket);
     }
     console.log("Número de usuarios emitiendo: "+users.length);
     io.emit('updateUsers',users);
@@ -37,7 +38,15 @@ io.on('connection', function(socket){
   **/
   socket.on('closeConnection', function(name){
     users.splice(users.indexOf(name),1);
-    console.log('Emisor con nombre ' + name + ' desconectado');
+    console.log("Número de usuarios emitiendo: "+users.length);
+    io.emit('stopStreaming',undefined);
+    io.emit('updateUsers',users);
+  });
+
+  socket.on('disconnect', function(){
+    sockets.splice(sockets.indexOf(socket),1);
+    users.splice(sockets.indexOf(socket),1);
+    //console.log('Emisor con nombre ' + name + ' desconectado');
     console.log("Número de usuarios emitiendo: "+users.length);
     io.emit('stopStreaming',undefined);
     io.emit('updateUsers',users);
