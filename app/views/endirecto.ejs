@@ -76,7 +76,7 @@
       **/
       function verStreaming(name){
         var all = document.getElementById("all").innerHTML = "";
-        $( ".all" ).append( '<img id=\"stream\" \/>' );
+        $( ".all" ).append( '<img style=\"width:640;height:480;\" id=\"stream\" \/>' );
       }
 
       /**Con el evento 'sendStream' se recogerá cada frame recibido y se representará en el <img> creado
@@ -126,7 +126,8 @@
           var fullContent = document.getElementById("fullContent").innerHTML = "";
           if(fullContent!=null){
             for(var i=0;i<users.length;i++){
-            $( ".fullContent" ).append( "<p>Usuario " + users[i] + " emitiendo</p> <button type=\"button\" id=\"" + users[i] + "\" onclick=\"verStreaming\(\'" + users[i] + "\'\)\">Visualizar</button>");
+            $( ".fullContent" ).append( "<button type=\"button\" class=\"btn btn-template-main\" \
+             id=\"" + users[i] + "\" onclick=\"verStreaming\(\'" + users[i] + "\'\)\">Ver streaming de "+users[i]+"</button>");
             }
           }
         });

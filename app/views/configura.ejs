@@ -20,49 +20,56 @@
 <% include partials/cabecera %>
 <% include partials/barranav %>
 
-        <h2>Hola <%=tipo%>, bienvenido a pag de configuración </h2>
 
         <div class="col-md-9 clearfix" id="customer-account">
-
-            <p class="lead">Cambia tus datos personales aquí</p>
+            <p class="lead">En esta página podrás cambiar tus datos personales</p>
             <div class="box">
 
                 <div class="heading">
                     <h3 class="text-uppercase">Cambiar contraseña</h3>
                 </div>
 
-                <form action="/config" method="post">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label for="password_old">Contraseña actual</label>
-                                <input type="password" class="form-control" id="password_old">
-                            </div>
-                        </div>
-                    </div>
+                <form action="/config" method="post" name="fvalida">
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="password">Nueva contraseña</label>
-                                <input type="password" class="form-control" id="password_1">
+                                <input type="password" class="form-control" name="password_1" required>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="password_2">Repite nueva contraseña</label>
-                                <input type="password" class="form-control" id="password_2">
+                                <input type="password" class="form-control" name="password_2" required>
                             </div>
                         </div>
                     </div>
                     <!-- /.row -->
-
                     <div class="text-center">
-                        <button type="submit" class="btn btn-template-main"><i class="fa fa-save"></i> Guardar cambios</button>
+                      <i class="fa fa-paper-planes"></i> <input type="button" class="btn btn-template-main" value="Guardar cambios" onclick="valida_envia()">
                     </div>
                 </form>
 
             </div>
             <!-- /.box -->
+
+            <script>
+            function valida_envia(){
+               	//valido el nombre
+               	if (document.fvalida.password_1.value !=document.fvalida.password_2.value){
+                    alert("Las dos contraseñas tienen que coincidir")
+                  	return 0;
+               	}
+
+               	//el formulario se envia
+                if (confirm("¿Seguro que quieres actualizar la contraseña?") == true) {
+                  document.fvalida.submit();
+
+                } else {
+                    return 0
+                   }
+            }
+            </script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
