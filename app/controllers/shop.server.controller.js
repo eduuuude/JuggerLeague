@@ -22,11 +22,10 @@ precio.select('precio');
 // execute the query at a later time
 precio.exec(function (err, product) {
   if (err) return handleError(err);
-  var hola = req.user.creditos - product.precio;
-  User.findByIdAndUpdate(req.user.id, { $set: {"creditos": hola}}, {safe:true, upsert:true}, function(err, model) {console.log(err);});
+  var cr = req.user.creditos - product.precio;
+  User.findByIdAndUpdate(req.user.id, { $set: {"creditos": cr}}, {safe:true, upsert:true}, function(err, model) {console.log(err);});
 
 })
-console.log(precio);
     User.findByIdAndUpdate(req.user.id, { $push: {compras: compra}}, {safe:true, upsert:true}, function(err, model) {console.log(err);});
     res.redirect('/compra');
 

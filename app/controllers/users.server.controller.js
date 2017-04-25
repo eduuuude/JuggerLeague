@@ -126,17 +126,21 @@ exports.userByID = function(req, res, next, id) {
         }
     );
 };
+exports.updatePassword = function (req, res, next) {
+    var user = req.user;
+    user.password = req.body.password_1;
 
-exports.updatePassword = function(req, res) {
-    user.password=req.body.password;
-    User.findByIdAndUpdate(req.user.id, req.body, function(err, user) {
+    user.save(function(err) {
         if (err) {
-            return next(err);
+            var message = getErrorMessage(err);
+            req.flash('error', message);
+            return res.redirect('/config');
         }
         else {
-            res.json(user);
+          return res.redirect('/');
+
         }
-    });
+  });
 };
 
 
