@@ -53,6 +53,6 @@ exports.renderClasificacion = function(req, res, next) {
 exports.renderEnDirecto = function(req, res, next) {
         res.render('endirecto', {
             title: 'En directo',
-            tipo: req.user ? req.user.tipo : ''
+            tipo: ''
         });
 };

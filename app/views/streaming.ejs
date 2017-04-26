@@ -24,28 +24,25 @@
 
 <!--CABECERA---------------------------->
   <% include partials/cabecera %>
-
-
-<!--Si hay un usuario conectado-->
- <% if ( tipo=="administrador" ) { %>
 <!-- BARRA NAVEGACIÓN---------------------------->
 <% include partials/barranav %>
 
-        <h2>Desde aquí se va a poder realizar streaming</h2>
-<% }  %>
-
-<% if ( tipo=="usuario" ) { %>
-<!-- BARRA NAVEGACIÓN---------------------------->
-<% include partials/barranav %>
-  <div class="text-left">
-      <p class="lead">En esta página podrás compartir tu streaming del evento</p>
+<div class="container">
+  <div class="heading">
+      <h3 class="text-uppercase">Streaming</h3>
+  </div>
+    <div class="text-left">
+        <p class="lead">En esta página podrás compartir tu streaming del evento</p>
     </div>
-  <div class="text-center">
-  <button type="button" class="btn btn-template-main" id="exitButton">Terminar Streaming</button>
-</br>
+    <div class="text-center">
+      <button type="button" class="btn btn-template-main" id="exitButton">Terminar Streaming</button>
+      <!-- El boton para terminar el streaming -->
+    </div>
+    </br>
+    <div class="text-center" id="sketch">
+      <!-- Aqui irá el video -->
+    </div>
 </div>
-</br>
-
   <script>
     var c;
     var video;
@@ -81,8 +78,7 @@
     **/
     function setup(){
       c = createCanvas(640,480);
-      c.position(400,300);
-
+      c.parent('sketch');
       video = createCapture(VIDEO);
       video.size(640,480);
       video.hide();
@@ -92,7 +88,6 @@
         socket.emit('sendStream',{name:userName,capture:c.canvas.toDataURL('image/jpeg', 0.7)});
       }
       image(video,0,0,640,480);
-      background('rgba(56,176,222, 0.25)');
       noFill();
       strokeWeight(4);
       beginShape();
@@ -122,7 +117,6 @@
 
   </script>
 
-<% } %>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
