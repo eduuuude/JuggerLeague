@@ -23,20 +23,22 @@
 
   <!--Página de CLASIFICACIÓN - muestra los equipos participantes en orden
   descendente según sus puntuaciones en la liga -->
-
-  <!--Si hay un usuario conectado-->
-   <% if ( tipo=="administrador" ) { %>
   <!-- BARRA NAVEGACIÓN---------------------------->
   <% include partials/barranav %>
+  <!--Si hay un usuario conectado-->
+   <% if ( tipo=="administrador" ) { %>
 
-          <h2>Clasificación</h2>
-  				<h3>Como administrador, puedes ver la información de todos los usuarios participantes</h3>
+    <div class="container">
+          <div class="heading">
+              <h3 class="text-uppercase">Clasificación</h3>
+          </div>
           <!-- A diferencia del usuario participante, la lista que ve el administrador
                incluye a todos los usuarios, incluyendo un botón para cada uno
                que redirige al perfil correspondiente-->
                <div class="col-md-9" id="customer-orders">
+                 <p class="lead">Como administrador, puedes ver la información de todos los usuarios participantes en la liga</p>
 
-                                <p class="text-muted lead">Tabla de clasificación</p>
+                                <p class="text-muted lead">Esta es la tabla de clasificación</p>
 
                                 <div class="box">
 
@@ -79,7 +81,7 @@
                                                     <!--<td><%=data[i].nivel%></td>-->
                                                     <td><%=data[i].puntos%></td>
 
-                                                    <td><a href="perfil.html" class="btn btn-template-main btn-sm">Ver perfil</a>
+                                                    <td><a href="/" class="btn btn-template-main btn-sm">Ver perfil</a>
                                                     </td>
                                                 </tr>
                                                 <% } %>
@@ -93,16 +95,21 @@
                                 <!-- /.box -->
 
                   </div>
+                </div>
+
                             <!-- /.col-md-9 -->
   <% }  %>
 
   <% if ( tipo=="usuario" ) { %>
-  <!-- BARRA NAVEGACIÓN---------------------------->
-  <% include partials/barranav %>
 
+  <div class="container">
 
-         <h2>Hola <%=tipo%>, esta es la tabla de clasificación </h2>
          <div class="col-md-9" id="customer-orders">
+           <div class="heading">
+               <h3 class="text-uppercase">Clasificación</h3>
+           </div>
+           <p class="lead">En esta página podrás ver como va tu equipo en la liga</p>
+
 
                           <p class="text-muted lead">Tabla de clasificación</p>
 
@@ -159,7 +166,6 @@
                                                     <td><%=data[i].puntos%></td>
                                                   <% } %>
                                               <% } %>
-
                                           </tr>
                                           <% } %>
                                         <% } %>
@@ -173,6 +179,8 @@
 
             </div>
                       <!-- /.col-md-9 -->
+                    </div>
+                    <!-- /.container -->
 
   <% } %>
 
