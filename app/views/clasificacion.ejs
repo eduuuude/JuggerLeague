@@ -18,30 +18,175 @@
 
 <body>
 
-<!--CABECERA---------------------------->
-  <% include partials/cabecera %>
+  <!--CABECERA---------------------------->
+    <% include partials/cabecera %>
+
+  <!--Página de CLASIFICACIÓN - muestra los equipos participantes en orden
+  descendente según sus puntuaciones en la liga -->
+  <!-- BARRA NAVEGACIÓN---------------------------->
+  <% include partials/barranav %>
+  <!--Si hay un usuario conectado-->
+   <% if ( tipo=="administrador" ) { %>
+
+    <div class="container">
+          <div class="heading">
+              <h3 class="text-uppercase">Clasificación</h3>
+          </div>
+          <!-- A diferencia del usuario participante, la lista que ve el administrador
+               incluye a todos los usuarios, incluyendo un botón para cada uno
+               que redirige al perfil correspondiente-->
+               <div class="col-md-9" id="customer-orders">
+                 <p class="lead">Como administrador, puedes ver la información de todos los usuarios participantes en la liga</p>
+
+                                <p class="text-muted lead">Esta es la tabla de clasificación</p>
+
+                                <div class="box">
+
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Posición</th>
+                                                    <th>Equipo</th>
+                                                    <th>Usuario</th>
+                                                    <!--<th>Nivel</th>-->
+                                                    <th>Puntuación</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                              <% var pos=1; %>
+                                              <% for(var i=0; i < data.length; i++) { %>
+                                                <!--Sólo se muestran los usuarios participantes-->
+                                                <% if ( data[i].tipo=="usuario" ) { %>
+                                                <tr>
+                                                    <% if ( i==0 ) { %> <!-- Si es la primera entrada de la lista = primera posición del ranking -->
+                                                      <th># 1</th>
+                                                    <% } else { %> <!-- Para el resto de entradas -->
+                                                      <% if ( data[i-1].puntos > data[i].puntos ) { %>
+                                                        <% pos++;%> <!-- Si el siguiente usuario tiene una puntuación menor, está en la siguiente posición del ranking-->
+                                                      <% } %>
+                                                      <th># <%=pos%></th>
+                                                    <% } %>
+
+                                                    <td><%=data[i].equipo%></td>
+
+                                                    <% if ( nombre==data[i].username ) { %>
+                                                      <!--Destacar el nombre del usuario-->
+                                                      <td><span class="label label-info"><%=data[i].username%></span>
+                                                      </td>
+                                                    <% }  else { %>
+                                                      <td><%=data[i].username%></td>
+                                                    <% } %>
+
+                                                    <!--<td><%=data[i].nivel%></td>-->
+                                                    <td><%=data[i].puntos%></td>
+
+                                                    <td><a href="/" class="btn btn-template-main btn-sm">Ver perfil</a>
+                                                    </td>
+                                                </tr>
+                                                <% } %>
+                                              <% } %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.table-responsive -->
+
+                                </div>
+                                <!-- /.box -->
+
+                  </div>
+                </div>
+
+                            <!-- /.col-md-9 -->
+  <% }  %>
+
+  <% if ( tipo=="usuario" ) { %>
+
+  <div class="container">
+
+         <div class="col-md-9" id="customer-orders">
+           <div class="heading">
+               <h3 class="text-uppercase">Clasificación</h3>
+           </div>
+           <p class="lead">En esta página podrás ver como va tu equipo en la liga</p>
 
 
-<!--Si hay un usuario conectado-->
- <% if ( tipo=="administrador" ) { %>
-<!-- BARRA NAVEGACIÓN---------------------------->
-<% include partials/barranav %>
+                          <p class="text-muted lead">Tabla de clasificación</p>
 
-        <h2>Puedes consultar todo sobre la calsificación y realizar cambios </h2>
-				<h3><%=tipo%></h3>
-<% }  %>
+                          <div class="box">
 
-<% if ( tipo=="usuario" ) { %>
-<!-- BARRA NAVEGACIÓN---------------------------->
-<% include partials/barranav %>
+                              <div class="table-responsive">
+                                  <table class="table table-hover">
+                                      <thead>
+                                          <tr>
+                                              <th>Posición</th>
+                                              <th>Equipo</th>
+                                              <th>Puntuación</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                        <% var pos=1; %>
+                                        <% for(var i=0; i < data.length; i++) { %>
+                                          <!--Sólo se tienen en cuenta los usuarios participantes-->
+                                          <% if ( data[i].tipo=="usuario" ) { %>
+                                          <tr>
+                                              <% if ( i==0 ) { %> <!-- Si es la primera entrada de la lista = primera posición del ranking -->
+                                                <!-- POSICIÓN -->
+                                                <th># 1</th>
 
-       <h2>Hola <%=tipo%>, esta es la pag principal </h2>
+                                                <!-- EQUIPO -->
+                                                <% if ( equipo==data[i].equipo ) { %>
+                                                  <!--Destacar el nombre del equipo al que pertenece el usuario-->
+                                                  <td><span class="label label-info"><%=data[i].equipo%></span>
+                                                  </td>
+                                                <% }  else { %>
+                                                  <td><%=data[i].equipo%></td>
+                                                <% } %>
 
-<% } %>
+                                                <!-- PUNTUACIÓN -->
+                                                <td><%=data[i].puntos%></td>
+                                              <% } else { %> <!-- Para el resto de entradas -->
+                                                <% if ( data[i].equipo !=  data[i-1].equipo) { %>
+                                                  <% if ( data[i-1].puntos > data[i].puntos ) { %>
+                                                    <% pos++;%> <!-- Si el siguiente usuario tiene una puntuación menor, está en la siguiente posición del ranking-->
+                                                    <% } %>
+                                                    <!-- POSICIÓN -->
+                                                    <th># <%=pos%></th>
+
+                                                    <!-- EQUIPO -->
+                                                    <% if ( equipo==data[i].equipo ) { %>
+                                                      <!--Destacar el nombre del equipo al que pertenece el usuario-->
+                                                      <td><span class="label label-info"><%=data[i].equipo%></span>
+                                                      </td>
+                                                    <% }  else { %>
+                                                      <td><%=data[i].equipo%></td>
+                                                    <% } %>
+
+                                                    <!-- PUNTUACIÓN -->
+                                                    <td><%=data[i].puntos%></td>
+                                                  <% } %>
+                                              <% } %>
+                                          </tr>
+                                          <% } %>
+                                        <% } %>
+                                      </tbody>
+                                  </table>
+                              </div>
+                              <!-- /.table-responsive -->
+
+                          </div>
+                          <!-- /.box -->
+
+            </div>
+                      <!-- /.col-md-9 -->
+                    </div>
+                    <!-- /.container -->
+
+  <% } %>
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-</body>
-</html>
+  </body>
+  </html>
