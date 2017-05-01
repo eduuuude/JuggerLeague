@@ -1,5 +1,6 @@
 var users = require('../../app/controllers/users.server.controller');
 var passport=require('passport');
+
 module.exports = function(app) {
   app.route('/users').post(users.create).get(users.list);
 
@@ -12,7 +13,8 @@ module.exports = function(app) {
       .post(users.register);
 
       app.route('/config')
-          .get(users.renderConfigura);
+          .get(users.renderConfigura)
+          .post(users.updatePassword);
 
   app.route('/login')
       .get(users.renderLogin)

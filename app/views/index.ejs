@@ -33,8 +33,45 @@
 <% if ( tipo=="usuario" ) { %>
 <!-- BARRA NAVEGACIÓN---------------------------->
 <% include partials/barranav %>
+<div class="container">
+                <section>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="heading">
+                                <h3>PÁGINA DE PERFIL</h3>
+                            </div>
+                            <p class="lead">¡Hola, <%=nombre%>!</p>
+                        </div>
+                    </div>
 
-       <h2>Hola usuario, esta es la pag principal </h2>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <ul class="ul-icons">
+                                <li><i class="fa fa-star"></i>Miembro de <%=equipo%></li>
+                                <li><i class="fa fa-envelope"></i>E-mail: <%=email%></li>
+                                <li><i class="fa fa-line-chart"></i>Puntuación de tu equipo: <%=puntos%></li>
+                            </ul>
+                        </div>
+
+                        <div class="col-md-4">
+                            <img class="img-responsive img-circle" alt="" src="http://bilbaodynamics.com/wp-content/uploads/2016/02/MK2_fronto_lateral.jpg">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="heading">
+                                <h4>TABLÓN DE NOTICIAS</h4>
+                            </div>
+                            <p class="lead">Aquí puedes seguir todas las novedades de la liga:</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                      <!--Aquí iría el perfil de Twitter de la liga-->
+                      <a class="twitter-timeline" href="https://twitter.com/BilbaoDynamics">Noticias</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                    </div>
+                </section>
 
 <% } %>
 

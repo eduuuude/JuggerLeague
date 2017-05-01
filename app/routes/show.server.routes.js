@@ -10,4 +10,10 @@ module.exports = function(app) {
 	app.route('/clasificacion')
      .get(show.renderClasificacion);
 
+	app.route('/streaming')
+     .get(show.renderStreaming);
+
+	app.route('/endirecto')
+		.get(show.renderEnDirecto);
+
 };
