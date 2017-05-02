@@ -15,138 +15,7 @@
 
 
 </head>
-<script>
-    
-var clientId = '975532637596-2djsdqav4k9cm7gi07ul0ts126b0u6sf.apps.googleusercontent.com'; //choose web app client Id, redirect URI and Javascript origin set to http://localhost
-var apiKey = 'AIzaSyBobhCgTJ_ORXMvaE38tuFqxyM6QS1GTo8'; //choose public apiKey, any IP allowed (leave blank the allowed IP boxes in Google Dev Console)
-var userEmail = "juggerleague@gmail.com"; //your calendar Id
-var userTimeZone = "Madrid"; //example "Rome" "Los_Angeles" ecc...
-var maxRows = 10; //events to shown
-var calName = "Calendario Jugger League "; //name of calendar (write what you want, doesn't matter)
-    
-var scopes = 'https://www.googleapis.com/auth/calendar';
-    
-//--------------------- Add a 0 to numbers
-function padNum(num) {
-    if (num <= 9) {
-        return "0" + num;
-    }
-    return num;
-}
-//--------------------- end    
-    
-//--------------------- end    
 
-//--------------------- num Month to String
-function monthString(num) {
-         if (num === "01") { return "Enero"; } 
-    else if (num === "02") { return "Febrero"; } 
-    else if (num === "03") { return "Marzo"; } 
-    else if (num === "04") { return "Abril"; } 
-    else if (num === "05") { return "Mayo"; } 
-    else if (num === "06") { return "Junio"; } 
-    else if (num === "07") { return "Julio"; } 
-    else if (num === "08") { return "Agosto"; } 
-    else if (num === "09") { return "Septiembre"; } 
-    else if (num === "10") { return "Octubre"; } 
-    else if (num === "11") { return "Noviembre"; } 
-    else if (num === "12") { return "Diciembre"; }
-}
-//--------------------- end
-
-//--------------------- from num to day of week
-function dayString(num){
-         if (num == "1") { return "Lunes" }
-    else if (num == "2") { return "Martes" }
-    else if (num == "3") { return "Miercoles" }
-    else if (num == "4") { return "Jueves" }
-    else if (num == "5") { return "Viernes" }
-    else if (num == "6") { return "Sábado" }
-    else if (num == "0") { return "Domingo" }
-}
-//--------------------- end
-
-//--------------------- client CALL
-function handleClientLoad() {
-    gapi.client.setApiKey(apiKey);
-    checkAuth();
-}
-//--------------------- end
-
-//--------------------- check Auth
-function checkAuth() {
-    gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
-}
-//--------------------- end
-
-//--------------------- handle result and make CALL
-function handleAuthResult(authResult) {
-    if (authResult) {
-        makeApiCall();
-    }
-}
-//--------------------- end
-
-//--------------------- API CALL itself
-function makeApiCall() {
-    var today = new Date(); //today date
-    gapi.client.load('calendar', 'v3', function () {
-        var request = gapi.client.calendar.events.list({
-            'calendarId' : userEmail,
-            'timeZone' : userTimeZone, 
-            'singleEvents': true, 
-            'timeMin': today.toISOString(), //gathers only events not happened yet
-            'maxResults': maxRows, 
-            'orderBy': 'startTime'});
-    request.execute(function (resp) {
-            for (var i = 0; i < resp.items.length; i++) {
-                li = document.createElement('li');
-                var item = resp.items[i];
-                var classes = [];
-                var allDay = item.start.date? true : false;
-                var startDT = allDay ? item.start.date : item.start.dateTime;
-                var dateTime = startDT.split("T"); //split date from time
-                var date = dateTime[0].split("-"); //split yyyy mm dd
-                var startYear = date[0];
-                var startMonth = monthString(date[1]);
-                var startDay = date[2];
-                var startDateISO = new Date(startMonth + " " + startDay + ", " + startYear + " 00:00:00");
-                var startDayWeek = dayString(startDateISO.getDay());
-                if( allDay == true){ //change this to match your needs
-                    var str = [ //change this to match your needs
-                        '<h2>',item.summary,'</h2>',
-                        startDayWeek, ' ',
-												startDay, ' de ',
-                        startMonth, ' de ',
-                        startYear, ' - ',
-                        startHour, ':', sta
-                    ];
-                }
-                else{
-                    var time = dateTime[1].split(":"); //split hh ss etc...
-                    var startHour = time[0];
-                    var startMin = time[1];
-                    var str = [ //change this to match your needs
-                        '<h2>',item.summary,'</h2>',
-                        startDayWeek, ' ',
-												startDay, ' de ',
-                        startMonth, ' de ',
-                        startYear, ' - ',
-                        startHour, ':', startMin,'<br><br>'
-                        ];
-                }
-                li.innerHTML = str.join('');
-                li.setAttribute('class', classes.join(' '));
-                document.getElementById('events').appendChild(li);
-            }
-        document.getElementById('updated').innerHTML = "Actualizado:  " + today;
-        document.getElementById('calendar').innerHTML = calName;
-        });
-    });
-}
-//--------------------- end
-</script>
-<script src='https://apis.google.com/js/client.js?onload=handleClientLoad'></script>
 <body>
 
 <!--CABECERA---------------------------->
@@ -160,18 +29,10 @@ function makeApiCall() {
 
         <h2>Puedes consultar todo sobre el calendario y realizar cambios </h2>
 				<h3><%=tipo%></h3>
-				<!--<iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;mode=AGENDA&amp;height=800&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;src=juggerleague%40gmail.com&amp;color=%231B887A&amp;ctz=Europe%2FMadrid" style="border-width:0" width="900" height="600" frameborder="0" scrolling="no"></iframe>
-				<p>Aquí habría que añadir algo para añadir eventos o arriba</p>-->
+				<iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;mode=AGENDA&amp;height=800&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;src=juggerleague%40gmail.com&amp;color=%231B887A&amp;ctz=Europe%2FMadrid" style="border-width:0" width="900" height="600" frameborder="0" scrolling="no"></iframe>
+				<p>Para añadir eventos visita el siguiente <a href="https://calendar.google.com/calendar/render?pli=1#main_7">link</a></p>
 
-<!--------------->
 
-    <div id='content'>
-    <h2 id='calendar'">CARGANDO . . . .</h1>
-    <ul id='events'></ul>
-    </div>
-    <p id='updated' style="font-size:12; color:grey">Actualizando . . . . .</p>
-
-<!--------------->
 
 <% }  %>
 
