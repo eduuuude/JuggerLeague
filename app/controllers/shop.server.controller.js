@@ -48,7 +48,7 @@ exports.add = function(req, res, next) {
                 return res.redirect('/tienda');
             }
         });
-    
+
 
     return res.redirect('/tienda');
 
@@ -71,7 +71,6 @@ exports.renderTienda = function(req, res, next) {
               "data": shops
           });
         }
-
       }
   });
 

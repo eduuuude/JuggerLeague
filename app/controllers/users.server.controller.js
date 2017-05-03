@@ -46,7 +46,43 @@ exports.create = function(req, res, next) {
         }
     });
 };
+exports.valida = function (req, res, next) {
 
+
+    User.findByIdAndUpdate(req.params.usuarioId, { $set: {"tipo": "usuario"}}, {safe:true, upsert:true}, function(err, model) {console.log(err);});
+    return res.redirect('/perfil');
+
+};
+
+exports.eliminaUser=function(req, res, next) {
+ var user=req.params.usuarioId;
+
+ User.findOneAndRemove({'_id' : user}, function (err,offer){
+         res.redirect('/perfil');
+       });
+};
+
+exports.renderPerfil=function(req, res, next) {
+  User.find({}, null, {sort: { equipo: -1 }}, function(err, users) {
+      if (err) {
+          return next(err);
+      }
+      else {
+        if (req.user) {
+          res.render('index', {
+            title: 'JUGGERLEAGUE',
+            tipo: req.user ? req.user.tipo : '',
+            nombre: req.user ? req.user.username : '',
+            equipo: req.user ? req.user.equipo : '',
+            puntos: req.user ? req.user.puntos : '',
+            email: req.user ? req.user.email : '',
+              "data": users
+          });
+        }
+
+      }
+  });
+};
 exports.renderLogin = function(req, res, next) {
     if (!req.user) {
         res.render('login', {

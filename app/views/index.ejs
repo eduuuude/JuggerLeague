@@ -25,8 +25,48 @@
  <% if ( tipo=="administrador" ) { %>
 <!-- BARRA NAVEGACIÓN---------------------------->
 <% include partials/barranav %>
+<div class="container">
+  <div class="row">
+          <div class="heading">
+              <h3>PÁGINA DE PERFIL</h3>
+          </div>
+          <p class="lead">Bienvenido, <%=nombre%>. Aqui están todos los usuarios de la aplicación</p> </br>
+          <p class="lead">Como administrador, puedes ver la información de todos los usuarios participantes en la liga, eliminarlos o validar a los nuevos usuarios</p>
 
-        <h2>Hola señor administrador, esta es la pag principal </h2>
+      </div>
+
+
+                 <% for(var i=0; i < data.length; i++) { %>
+                   <% if ( data[i].tipo=="usuario" || data[i].tipo==null ) { %>
+                     <% if ( data[i].equipo!=data[i-1].equipo ) { %>
+                       <div class="row">
+                   <div class="heading">
+                       <h4><%=data[i].equipo%></h4> </br>
+                       <p class="lead"> Puntuación del equipo: <%=data[i].puntos%> </p>
+                       <p class="lead"> Créditos del equipo: <%=data[i].creditos%> </p>
+                       <p class="lead"> Usuarios del equipo: </p>
+                       
+                   </div></div>
+                    <% } %>
+                    <div class="box">
+                    <ul class="ul-icons">
+                        <li><i class="fa fa-user"></i><%=data[i].username%></li>
+                        <li><i class="fa fa-envelope"></i><%=data[i].email%></li>
+                        <a href="/eliminar/<%=data[i]._id%>" class="btn btn-template-second btn-sm">Eliminar usuario</a>
+                        <% if ( data[i].tipo==null ) { %>
+                          <a href="/validar/<%=data[i]._id%>" class="btn btn-template-main btn-sm">Validar usuario</a>
+
+                          <% } %>
+                    </ul>
+                  </div>
+
+                   <% } %>
+
+
+                <% } %>
+
+
+      </div>
 
 <% }  %>
 
@@ -74,6 +114,21 @@
                 </section>
 
 <% } %>
+
+<% if ( tipo==null ) { %>
+<div class="container">
+  <div class="row">
+      <div class="col-md-9">
+          <div class="heading">
+              <h3>PÁGINA DE PERFIL</h3>
+          </div>
+          <p class="lead">¡Lo siento, <%=nombre%>, tu usuario todavía no ha sido validado!</p>
+      </div>
+  </div>
+
+</div>
+  <% } %>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
