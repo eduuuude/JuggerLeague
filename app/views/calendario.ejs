@@ -26,22 +26,36 @@
  <% if ( tipo=="administrador" ) { %>
 <!-- BARRA NAVEGACIÓN---------------------------->
 <% include partials/barranav %>
+  <div class="container">
+    <div class="heading">
+      <h3 class="text-uppercase"> Calendario </h3>
+    </div>
+    <p class="lead">Como administrador, puedes consultar todo el calendario y realizar cambios</p>
 
-        <h2>Puedes consultar todo sobre el calendario y realizar cambios </h2>
-				<h3><%=tipo%></h3>
+    <p class="lead">Para añadir eventos visita el siguiente <a href="https://calendar.google.com/calendar/render?pli=1#main_7">link</a></p>
+
+				<iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;mode=AGENDA&amp;height=800&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;src=juggerleague%40gmail.com&amp;color=%231B887A&amp;ctz=Europe%2FMadrid" style="border-width:0" width="900" height="600" frameborder="0" scrolling="no"></iframe>
+
+</div>
+
 <% }  %>
+
 
 <% if ( tipo=="usuario" ) { %>
 <!-- BARRA NAVEGACIÓN---------------------------->
 <% include partials/barranav %>
 
-       <h2>Hola <%=tipo%> , bienvenido a tu calendario  </h2>
+<div class="container">
+  <div class="heading">
+    <h3 class="text-uppercase"> Calendario </h3>
+  </div>
+  <p class="lead">Bienvenido a tu calendario, aquí podrás ver los próximos eventos</p>
+			<iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;mode=AGENDA&amp;height=800&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;src=juggerleague%40gmail.com&amp;color=%231B887A&amp;ctz=Europe%2FMadrid" style="border-width:0" width="900" height="600" frameborder="0" scrolling="no"></iframe>
+
+    </div>
 
 <% } %>
 
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </body>
 </html>
