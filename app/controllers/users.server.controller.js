@@ -173,7 +173,7 @@ exports.updatePassword = function (req, res, next) {
             return res.redirect('/config');
         }
         else {
-          return res.redirect('/');
+          return res.redirect('/perfil');
 
         }
   });
