@@ -27,15 +27,25 @@ exports.renderStreaming = function(req, res, next) {
 };
 
 exports.renderCombates = function(req, res, next) {
-    if (req.user) {
-        res.render('combates', {
-            title: 'Combates',
-            tipo: req.user ? req.user.tipo : ''
-        });
-    }
-    else {
-        return res.redirect('/');
-    }
+  User.find({}, null, {sort: { equipo: -1 }}, function(err, users) {
+      if (err) {
+          return next(err);
+      }
+      else {
+          //res.json(users);
+          if (req.user) {
+              res.render('combates', {
+                  title: 'Combates',
+                  tipo: req.user ? req.user.tipo : '',
+                  equipo: req.user ? req.user.equipo : '',
+                  "data": users
+              });
+          }
+          else {
+              return res.redirect('/perfil');
+          }
+      }
+  });
 };
 
 exports.renderClasificacion = function(req, res, next) {
@@ -55,7 +65,7 @@ exports.renderClasificacion = function(req, res, next) {
               });
           }
           else {
-              return res.redirect('/');
+              return res.redirect('/perfil');
           }
       }
   });

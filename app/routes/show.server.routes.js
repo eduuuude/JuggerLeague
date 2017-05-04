@@ -16,4 +16,8 @@ module.exports = function(app) {
 	app.route('/endirecto')
 		.get(show.renderEnDirecto);
 
+  app.route('/actualizaComb')
+    .post(show.update);
+
+
 };
