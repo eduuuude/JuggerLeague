@@ -31,6 +31,29 @@ precio.exec(function (err, product) {
 
 };
 
+exports.elimina=function(req, res, next) {
+ var compra=req.params.compraId;
+
+ Shop.findOneAndRemove({'_id' : compra}, function (err,offer){
+         res.redirect('/tienda');
+       });
+};
+
+exports.add = function(req, res, next) {
+        var user = new Shop(req.body);
+        console.log(user);
+        var message = null;
+        user.save(function(err) {
+            if (err) {
+                return res.redirect('/tienda');
+            }
+        });
+
+
+    return res.redirect('/tienda');
+
+};
+
 
 exports.renderTienda = function(req, res, next) {
   Shop.find({}, function(err, shops) {
@@ -48,7 +71,6 @@ exports.renderTienda = function(req, res, next) {
               "data": shops
           });
         }
-
       }
   });
 

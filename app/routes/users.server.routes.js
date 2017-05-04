@@ -19,10 +19,16 @@ module.exports = function(app) {
   app.route('/login')
       .get(users.renderLogin)
       .post(passport.authenticate('local', {
-          successRedirect: '/',
+          successRedirect: '/perfil',
           failureRedirect: '/login',
           failureFlash: true
       }));
+  app.route('/perfil').get(users.renderPerfil);
+  app.route('/validar/:usuarioId').get(users.valida);
+
+  app.route('/eliminar/:usuarioId').get(users.eliminaUser);
+
+
 
   app.get('/logout', users.logout);
 

@@ -10,6 +10,10 @@ module.exports = function(app) {
       .get(shop.renderCompra);
 
   app.route('/compra/:compraId').get(shop.compra);
+  app.route('/elimina/:compraId').get(shop.elimina);
+  app.route('/add').post(shop.add);
+
+
 
 
 };
