@@ -108,7 +108,7 @@
     document.getElementById("exitButton").onclick = function () {
       socket.emit('closeConnection',userName);
       setTimeout(function(){
-              location.href = "http://localhost:1337";
+              location.href = "http://localhost:1337/perfil";
       }, 100);
     };
 

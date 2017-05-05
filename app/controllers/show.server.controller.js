@@ -72,8 +72,20 @@ exports.renderClasificacion = function(req, res, next) {
 };
 
 exports.renderEnDirecto = function(req, res, next) {
-        res.render('endirecto', {
-            title: 'En directo',
-            tipo: ''
-        });
+
+            if (req.user) {
+              res.render('endirecto', {
+              title: 'En directo',
+              tipo: req.user ? req.user.tipo : '',
+              nombre: req.user ? req.user.username : '',
+              equipo: req.user ? req.user.equipo : ''
+            });
+          }
+            else {
+              res.render('endirecto', {
+              title: 'En directo',
+              tipo: ''
+            });
+            }
+
 };
