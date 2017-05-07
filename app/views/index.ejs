@@ -36,18 +36,29 @@
       </div>
 
 
-                 <% for(var i=0; i < data.length; i++) { %>
-                   <% if ( data[i].tipo=="usuario" || data[i].tipo==null ) { %>
-                     <% if ( data[i].equipo!=data[i-1].equipo ) { %>
-                       <div class="row">
-                   <div class="heading">
-                       <h4><%=data[i].equipo%></h4> </br>
-                       <p class="lead"> Puntuación del equipo: <%=data[i].puntos%> </p>
-                       <p class="lead"> Créditos del equipo: <%=data[i].creditos%> </p>
-                       <p class="lead"> Usuarios del equipo: </p>
-                       
-                   </div></div>
-                    <% } %>
+      <% for(var i=0; i < data.length; i++) { %>
+        <% if ( data[i].tipo=="usuario" || data[i].tipo==null ) { %>
+          <% if( i>=1 ) {%>
+          <% if ( data[i].equipo!=data[i-1].equipo ) { %>
+            <div class="row">
+        <div class="heading">
+            <h4><%=data[i].equipo%></h4> </br>
+            <p class="lead"> Puntuación del equipo: <%=data[i].puntos%> </p>
+            <p class="lead"> Créditos del equipo: <%=data[i].creditos%> </p>
+            <p class="lead"> Usuarios del equipo: </p>
+
+        </div></div>
+         <% } %>
+         <%} else {%>
+           <div class="row">
+       <div class="heading">
+           <h4><%=data[i].equipo%></h4> </br>
+           <p class="lead"> Puntuación del equipo: <%=data[i].puntos%> </p>
+           <p class="lead"> Créditos del equipo: <%=data[i].creditos%> </p>
+           <p class="lead"> Usuarios del equipo: </p>
+
+       </div></div>
+         <% } %>
                     <div class="box">
                     <ul class="ul-icons">
                         <li><i class="fa fa-user"></i><%=data[i].username%></li>
