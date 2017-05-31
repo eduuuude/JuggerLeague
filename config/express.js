@@ -32,9 +32,11 @@ module.exports = function() {
     //use this code before any route definitions
     app.use(passport.initialize());
     app.use(passport.session());
-    
+
     require('../app/routes/index.server.routes.js')(app);
     require('../app/routes/users.server.routes.js')(app);
+    require('../app/routes/shop.server.routes.js')(app);
+		require('../app/routes/show.server.routes.js')(app);
 
     app.use(express.static('./public'));
 

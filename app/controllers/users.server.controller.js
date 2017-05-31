@@ -22,8 +22,10 @@ var getErrorMessage = function(err) {
 
     return message;
 };
+
 exports.list = function(req, res, next) {
     User.find({}, function(err, users) {
+      console.log(users);
         if (err) {
             return next(err);
         }
@@ -44,7 +46,43 @@ exports.create = function(req, res, next) {
         }
     });
 };
+exports.valida = function (req, res, next) {
 
+
+    User.findByIdAndUpdate(req.params.usuarioId, { $set: {"tipo": "usuario"}}, {safe:true, upsert:true}, function(err, model) {console.log(err);});
+    return res.redirect('/perfil');
+
+};
+
+exports.eliminaUser=function(req, res, next) {
+ var user=req.params.usuarioId;
+
+ User.findOneAndRemove({'_id' : user}, function (err,offer){
+         res.redirect('/perfil');
+       });
+};
+
+exports.renderPerfil=function(req, res, next) {
+  User.find({}, null, {sort: { equipo: -1 }}, function(err, users) {
+      if (err) {
+          return next(err);
+      }
+      else {
+        if (req.user) {
+          res.render('index', {
+            title: 'JUGGERLEAGUE',
+            tipo: req.user ? req.user.tipo : '',
+            nombre: req.user ? req.user.username : '',
+            equipo: req.user ? req.user.equipo : '',
+            puntos: req.user ? req.user.puntos : '',
+            email: req.user ? req.user.email : '',
+              "data": users
+          });
+        }
+
+      }
+  });
+};
 exports.renderLogin = function(req, res, next) {
     if (!req.user) {
         res.render('login', {
@@ -62,6 +100,18 @@ exports.renderRegister = function(req, res, next) {
         res.render('register', {
             title: 'Register Form',
             messages: req.flash('error')
+        });
+    }
+    else {
+        return res.redirect('/');
+    }
+};
+
+exports.renderConfigura = function(req, res, next) {
+    if (req.user) {
+        res.render('configura', {
+            title: 'Configura Form',
+            tipo: req.user ? req.user.username : ''
         });
     }
     else {
@@ -112,6 +162,24 @@ exports.userByID = function(req, res, next, id) {
         }
     );
 };
+exports.updatePassword = function (req, res, next) {
+    var user = req.user;
+    user.password = req.body.password_1;
+
+    user.save(function(err) {
+        if (err) {
+            var message = getErrorMessage(err);
+            req.flash('error', message);
+            return res.redirect('/config');
+        }
+        else {
+          return res.redirect('/perfil');
+
+        }
+  });
+};
+
+
 exports.update = function(req, res, next) {
     User.findByIdAndUpdate(req.user.id, req.body, function(err, user) {
         if (err) {
@@ -122,6 +190,7 @@ exports.update = function(req, res, next) {
         }
     });
 };
+
 exports.delete = function(req, res, next) {
     req.user.remove(function(err) {
         if (err) {
